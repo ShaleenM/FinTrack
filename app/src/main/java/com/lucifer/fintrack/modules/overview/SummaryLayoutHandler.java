@@ -2,6 +2,7 @@ package com.lucifer.fintrack.modules.overview;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -42,13 +43,19 @@ public class SummaryLayoutHandler {
 
     private class AmountSpentAsyncTaskRunner extends AsyncTask<String, String, Boolean> {
 
+        private static final String LOGGER_TAG = "AmountSpentAsyncTaskRunner";
+
         @Override
         protected Boolean doInBackground(String... params) {
+
+            Log.i(LOGGER_TAG, "In AmountSpentAsyncTaskRunner to update amount_month_spent");
             BigInteger startOfMonth = getStartOfMonth();
             BigInteger endOfMonth = getEndOfMonth();
 
-            // TODO: 12/29/18 Query tranactions with creation date between startOfMonth and endOfMonth 
-            return false;
+            String amountMonthSpent = expenseDao.getExpensesSummaryByMonth(startOfMonth, endOfMonth);
+            Log.i(LOGGER_TAG, "Amount spent current month $"+amountMonthSpent);
+            publishProgress(amountMonthSpent);
+            return true;
         }
 
         private BigInteger getStartOfMonth() {
@@ -63,7 +70,7 @@ public class SummaryLayoutHandler {
 
         @Override
         protected void onProgressUpdate(String... values) {
-            amount_month_spent.setText(values[0]);
+            amount_month_spent.setText("$" + values[0]);
         }
     }
 }
