@@ -49,8 +49,8 @@ public class SummaryLayoutHandler {
         protected Boolean doInBackground(String... params) {
 
             Log.i(LOGGER_TAG, "In AmountSpentAsyncTaskRunner to update amount_month_spent");
-            BigInteger startOfMonth = getStartOfMonth();
-            BigInteger endOfMonth = getEndOfMonth();
+            long startOfMonth = getStartOfMonth();
+            long endOfMonth = getEndOfMonth();
 
             String amountMonthSpent = expenseDao.getExpensesSummaryByMonth(startOfMonth, endOfMonth);
             Log.i(LOGGER_TAG, "Amount spent current month $"+amountMonthSpent);
@@ -58,14 +58,14 @@ public class SummaryLayoutHandler {
             return true;
         }
 
-        private BigInteger getStartOfMonth() {
+        private long getStartOfMonth() {
             long firstDayofCurrentMonth = LocalDate.now().with(TemporalAdjusters.firstDayOfMonth()).atStartOfDay(ZoneId.of("UTC")).toEpochSecond();
-            return BigInteger.valueOf(firstDayofCurrentMonth);
+            return firstDayofCurrentMonth;
         }
 
-        private BigInteger getEndOfMonth() {
+        private long getEndOfMonth() {
             long lastDayofCurrentMonth = LocalDate.now().with(TemporalAdjusters.firstDayOfNextMonth()).atStartOfDay(ZoneId.of("UTC")).toEpochSecond() - 1;
-            return BigInteger.valueOf(lastDayofCurrentMonth);
+            return lastDayofCurrentMonth;
         }
 
         @Override

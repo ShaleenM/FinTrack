@@ -8,23 +8,23 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.math.BigInteger;
+import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.Date;
 
 public class Converters {
 
     @TypeConverter
-    public static String fromBigInteger(BigInteger bigInteger) {
+    public static String fromBigDecimal(BigDecimal bigDecimal) {
         Gson gson = new Gson();
-        String json = gson.toJson(bigInteger);
+        String json = gson.toJson(bigDecimal);
         return json;
     }
 
     @TypeConverter
-    public static BigInteger fromStringtoBigInteger(String value) {
-        Type bigIntegerType = new TypeToken<BigInteger>(){}.getType();
-        return new Gson().fromJson(value, bigIntegerType);
+    public static BigDecimal fromStringtoBigDecimal(String value) {
+        Type bigDecimalType = new TypeToken<BigDecimal>(){}.getType();
+        return new Gson().fromJson(value, bigDecimalType);
     }
 
     @TypeConverter
@@ -41,7 +41,7 @@ public class Converters {
     }
 
     @TypeConverter
-    public static String fromBigInteger(Currency currency) {
+    public static String fromCurrency(Currency currency) {
         Gson gson = new Gson();
         String json = gson.toJson(currency);
         return json;

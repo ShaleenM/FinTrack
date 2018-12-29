@@ -5,12 +5,9 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.Date;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
 
 @Entity(tableName = "expense")
 public class Expense {
@@ -19,7 +16,7 @@ public class Expense {
     /** Unique identifier of an expense. Epoch timestamp of expense creation time.**/
     @PrimaryKey
     @NonNull
-    private BigInteger expense_creation_date;
+    private long expense_creation_date;
 
     /**YYYY MM DD of the transaction**/
     @NonNull
@@ -28,7 +25,7 @@ public class Expense {
 
     /**Amount of money spent**/
     @NonNull
-    private Double transaction_amount;
+    private BigDecimal transaction_amount;
 
     /**Currency of transaction**/
     private Currency currency;
@@ -41,7 +38,7 @@ public class Expense {
     /**Annotation**/
     private String annotation;
 
-    public Expense(@NonNull BigInteger expense_creation_date, @NonNull Date transaction_date, @NonNull Double transaction_amount, Currency currency, String category, String annotation) {
+    public Expense(@NonNull long expense_creation_date, @NonNull Date transaction_date, @NonNull BigDecimal transaction_amount, Currency currency, String category, String annotation) {
         this.expense_creation_date = expense_creation_date;
         this.transaction_date = transaction_date;
         this.transaction_amount = transaction_amount;
@@ -51,7 +48,7 @@ public class Expense {
     }
 
     @NonNull
-    public BigInteger getExpense_creation_date() {
+    public long getExpense_creation_date() {
         return expense_creation_date;
     }
 
@@ -61,7 +58,7 @@ public class Expense {
     }
 
     @NonNull
-    public Double getTransaction_amount() {
+    public BigDecimal getTransaction_amount() {
         return transaction_amount;
     }
 
@@ -77,7 +74,7 @@ public class Expense {
         return annotation;
     }
 
-    public void setExpense_creation_date(@NonNull BigInteger expense_creation_date) {
+    public void setExpense_creation_date(@NonNull long expense_creation_date) {
         this.expense_creation_date = expense_creation_date;
     }
 
@@ -85,7 +82,7 @@ public class Expense {
         this.transaction_date = transaction_date;
     }
 
-    public void setTransaction_amount(@NonNull Double transaction_amount) {
+    public void setTransaction_amount(@NonNull BigDecimal transaction_amount) {
         this.transaction_amount = transaction_amount;
     }
 

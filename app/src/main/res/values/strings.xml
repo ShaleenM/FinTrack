@@ -5,4 +5,5 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="summary_month_spent_text">spent in this month</string>
     <string name="default_amount_month_spent">$ 00.00</string>
+    <string name="expense_database_name">expense_database</string>
 </resources>

@@ -6,6 +6,8 @@ import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 
+import com.lucifer.fintrack.R;
+
 @Database(entities = {Expense.class}, version = 1, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class ExpenseRoomDatabase extends RoomDatabase {
@@ -19,7 +21,7 @@ public abstract class ExpenseRoomDatabase extends RoomDatabase {
             synchronized (ExpenseRoomDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            ExpenseRoomDatabase.class, "expense_database")
+                            ExpenseRoomDatabase.class, context.getString(R.string.expense_database_name))
                             .build();
                 }
             }
