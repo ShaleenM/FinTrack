@@ -10,7 +10,10 @@ import com.lucifer.fintrack.database.ExpenseDao;
 import com.lucifer.fintrack.database.ExpenseRoomDatabase;
 
 import java.math.BigInteger;
-import java.util.Calendar;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.TemporalAdjusters;
 
 import lombok.RequiredArgsConstructor;
 
@@ -49,30 +52,13 @@ public class SummaryLayoutHandler {
         }
 
         private BigInteger getStartOfMonth() {
-
-            // TODO: 12/29/18 Replace Calendar with a thread safe library 
-            Calendar cal = Calendar.getInstance();
-            cal.set(Calendar.HOUR_OF_DAY, 0); // ! clear would not reset the hour of day !
-            cal.clear(Calendar.MINUTE);
-            cal.clear(Calendar.SECOND);
-            cal.clear(Calendar.MILLISECOND);
-
-            return BigInteger.valueOf(cal.getInstance().getTimeInMillis()/1000);
+            long firstDayofCurrentMonth = LocalDate.now().with(TemporalAdjusters.firstDayOfMonth()).atStartOfDay(ZoneId.of("UTC")).toEpochSecond();
+            return BigInteger.valueOf(firstDayofCurrentMonth);
         }
 
         private BigInteger getEndOfMonth() {
-
-            // TODO: 12/29/18 Replace Calendar with a thread safe library
-            Calendar cal = Calendar.getInstance();
-            cal.set(Calendar.HOUR_OF_DAY, 0); // ! clear would not reset the hour of day !
-            cal.clear(Calendar.MINUTE);
-            cal.clear(Calendar.SECOND);
-            cal.clear(Calendar.MILLISECOND);
-
-            cal.add(Calendar.MONTH, 1);
-            cal.add(Calendar.SECOND, -1); // To get 20XX-MM-31 11:59 PM
-
-            return BigInteger.valueOf(cal.getInstance().getTimeInMillis()/1000);
+            long lastDayofCurrentMonth = LocalDate.now().with(TemporalAdjusters.firstDayOfNextMonth()).atStartOfDay(ZoneId.of("UTC")).toEpochSecond() - 1;
+            return BigInteger.valueOf(lastDayofCurrentMonth);
         }
 
         @Override
