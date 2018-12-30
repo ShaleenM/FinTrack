@@ -9,8 +9,9 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.Currency;
-import java.util.Date;
 
 public class Converters {
 
@@ -28,16 +29,13 @@ public class Converters {
     }
 
     @TypeConverter
-    public static String fromDate(Date date) {
-        Gson gson = new Gson();
-        String json = gson.toJson(date);
-        return json;
+    public static long fromLocalDateTime(LocalDateTime localDateTime) {
+        return localDateTime.toEpochSecond(ZoneOffset.UTC);
     }
 
     @TypeConverter
-    public static Date fromStringtoDate(String value) {
-        Type dateType = new TypeToken<Date>(){}.getType();
-        return new Gson().fromJson(value, dateType);
+    public static LocalDateTime fromLongtoLocalDateTime(long epochSec) {
+        return LocalDateTime.ofEpochSecond(epochSec, 0, ZoneOffset.UTC);
     }
 
     @TypeConverter

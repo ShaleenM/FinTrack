@@ -9,20 +9,21 @@ import android.util.Log;
 import com.lucifer.fintrack.modules.utils.ExpenseCategory;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Currency;
-import java.util.Date;
 
 @Entity(tableName = "expense")
 public class Expense {
 
     /** Unique identifier of an expense. Epoch timestamp of expense creation time.**/
     @PrimaryKey
-    private long expense_creation_date;
+    @NonNull
+    private LocalDateTime expense_creation_date;
 
     /**YYYY MM DD of the transaction**/
     @NonNull
     @ColumnInfo(index = true)
-    private Date transaction_date;
+    private LocalDateTime transaction_date;
 
     /**Amount of money spent**/
     @NonNull
@@ -45,7 +46,7 @@ public class Expense {
     /**Annotation of transaction**/
     private String annotation;
 
-    public Expense(long expense_creation_date, @NonNull Date transaction_date, @NonNull BigDecimal transaction_amount,@NonNull Currency currency, @NonNull String category,@NonNull String expense_name, String annotation) {
+    public Expense(@NonNull LocalDateTime expense_creation_date, @NonNull LocalDateTime transaction_date, @NonNull BigDecimal transaction_amount,@NonNull Currency currency, @NonNull String category,@NonNull String expense_name, String annotation) {
         this.expense_creation_date = expense_creation_date;
         this.transaction_date = transaction_date;
         this.transaction_amount = transaction_amount;
@@ -56,12 +57,12 @@ public class Expense {
     }
 
     @NonNull
-    public long getExpense_creation_date() {
+    public LocalDateTime getExpense_creation_date() {
         return expense_creation_date;
     }
 
     @NonNull
-    public Date getTransaction_date() {
+    public LocalDateTime getTransaction_date() {
         return transaction_date;
     }
 
@@ -94,11 +95,11 @@ public class Expense {
     }
 
 
-    public void setExpense_creation_date(@NonNull long expense_creation_date) {
+    public void setExpense_creation_date(@NonNull LocalDateTime expense_creation_date) {
         this.expense_creation_date = expense_creation_date;
     }
 
-    public void setTransaction_date(@NonNull Date transaction_date) {
+    public void setTransaction_date(@NonNull LocalDateTime transaction_date) {
         this.transaction_date = transaction_date;
     }
 
